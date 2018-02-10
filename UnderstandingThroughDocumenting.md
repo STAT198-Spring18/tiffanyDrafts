@@ -14,10 +14,15 @@ My jaw didn't drop but it basically did. I thought the code was clean, well-modu
 At this point, I realized I couldn’t answer his simple question. I had no idea what this program, as a standalone entity, does. If I never processed what my program does, I certainly never conveyed its purpose, and he certainly was right to be confused.
 
 I went into finals exam mode, recalling everything else about the program.
- “Okay, so it turns A into B so that we can use B in C,” I pause.
- I do my best to quickly repicture the entire script, with my Atom One Dark UI and Syntax Theme and all. I started piecing together the functions I remember writing.
+
+“Okay, so it turns A into B so that we can use B in C,” I pause.
+
+I do my best to quickly repicture the entire script, with my Atom One Dark UI and Syntax Theme and all. I started piecing together the functions I remember writing.
+
 “We take this from A and call X on it to get A’, and then we call Y…”
+
 “Does it go from [high level concept 1] to [high level concept 2] or from [high level concept 2] to [high level concept 1]?” he interrupts, like he has a better idea of what my program does than I do. Still unable to answer, I keep going through my memory of the code.  Eventually, after a lot of starts and stops, 
+
 “It goes from [high level concept 1] to [high level concept 2].” He was happy with my answer, but I was well-aware of how close I was to failing to explain my work.
 
 I had long known that I struggle with just accomplishing my own research tasks, and neglect understanding where my work fits into the bigger picture, but this was the call to action I needed to prioritize this problem. In research, getting tasks done is only part of the bare minimum--with so many research directions, how can anyone trust my research if I don’t have a clear idea of why I am doing what I am doing? The open nature of research means there is no clear path, so each decision needs to be well-justified.
