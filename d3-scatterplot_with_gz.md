@@ -48,46 +48,40 @@ All following modifications will be made to `plot.html`.
 
 1. Under the section `<!-- These javascript modules are used to draw the interactive plot  -->` add in one more import module: `<script src="gunzip.min.js"></script>`
 
-1. Add these two functions where any d3.tsv() calls can access them:
+1. Add these two functions where any d3.tsv() calls can access them (these two functions are based on dougbtv.com/2014/04/16/decompressing-gzipped-with-javascript AND stackoverflow.com/questions/33595168/variable-outside-onload-xmlhttprequest):
 
 ```javascript
-// The following two functions are modified from
-// dougbtv.com/2014/04/16/decompressing-gzipped-with-javascript
-// AND
-// stackoverflow.com/questions/33595168/variable-outside-onload-xmlhttprequest
 function createXhrRequest(request_url, callback) {
         var req = new XMLHttpRequest();
-        // You gotta trick it into downloading binary.
         req.open('GET', request_url);
+        // You gotta trick it into downloading binary.
         req.overrideMimeType('text\/plain; charset=x-user-defined');
         req.onload = function () {
-            callback(null, req.responseText, request_url); // or response?
+            // When the data is done downloading, pass in the response to the callback (loadCompressedASCIIFile)
+            callback(null, req.responseText, request_url);
         }
         req.onerror = function() {
+            // If there is an error in download, get loadCompressedASCIIFile to address it
             callback(xhr.response);
         }
         req.send(null);
 }
 var loadCompressedASCIIFile = function(err, response, request_url) {
-        console.log('[INFO] loadCompressedASCIIFile ' + request_url);
         if (err) {
             console.log("[ERROR] Error requesting file!");
             return "";
         }
 
-        // Create a byte array.
+        // Save each character to bytes, after masking higher-order values.
         var bytes = [];
-
-        // Walk through each character in the stream to remove the high-order values.
         for (var fileidx = 0; fileidx < response.length; fileidx++) {
             var abyte = response.charCodeAt(fileidx) & 0xff;
             bytes.push(abyte);
         }
 
-        // Instantiate our zlib object, and gunzip it.
+        // Utilize the zlib library to decompress the gzipped file.
         // Requires: http://goo.gl/PIqhbC [github]
         // (remove the map instruction at the very end.)
-        console.log('[INFO] Unzipping ' + request_url);
         var  gunzip  =  new  Zlib.Gunzip ( bytes );
         var  plain  =  gunzip.decompress ();
         // Return the ascii string from all those bytes.
@@ -96,16 +90,15 @@ var loadCompressedASCIIFile = function(err, response, request_url) {
 ```
 
 1. Where the code previously loads in data with
-
 ```javascript
 d3.tsv(dataset, function(data) {
 yourtextvariablename = text.map( Object.values );
 ```
-
 replace that with
 ```javascript
 yourtextvariablename = createXhrRequest(bowfile, loadCompressedASCIIFile);
 ```
+This tells the code to load in the data with the two functions we defined above, instead of the built-in `d3.tsv()`.
 
 1. [Optional] If you want to still keep the ability to load non-gzipped files, you can utilize the url arguments and add in statements like
 ```javascript
